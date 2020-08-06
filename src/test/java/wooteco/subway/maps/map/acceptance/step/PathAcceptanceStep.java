@@ -1,17 +1,18 @@
 package wooteco.subway.maps.map.acceptance.step;
 
-import io.restassured.RestAssured;
-import io.restassured.response.ExtractableResponse;
-import io.restassured.response.Response;
-import org.springframework.http.MediaType;
-import wooteco.subway.maps.map.dto.PathResponse;
-import wooteco.subway.maps.station.dto.StationResponse;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.http.MediaType;
+
+import io.restassured.RestAssured;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
+import wooteco.subway.maps.map.dto.PathResponse;
+import wooteco.subway.maps.station.dto.StationResponse;
 
 public class PathAcceptanceStep {
     public static ExtractableResponse<Response> 거리_경로_조회_요청(String type, long source, long target) {
@@ -33,9 +34,15 @@ public class PathAcceptanceStep {
         assertThat(stationIds).containsExactlyElementsOf(expectedPath);
     }
 
-    public static void 총_거리와_소요_시간을_함께_응답함(ExtractableResponse<Response> response, int totalDistance, int totalDuration) {
+    public static void 총_거리와_소요_시간_요금정보를_함께_응답함(
+        ExtractableResponse<Response> response,
+        int totalDistance,
+        int totalDuration,
+        int totalFare
+    ) {
         PathResponse pathResponse = response.as(PathResponse.class);
         assertThat(pathResponse.getDistance()).isEqualTo(totalDistance);
         assertThat(pathResponse.getDuration()).isEqualTo(totalDuration);
+        assertThat(pathResponse.getFare()).isEqualTo(totalFare);
     }
 }
