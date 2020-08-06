@@ -137,9 +137,12 @@ Jgrapht의 KShortestPaths 활용 방법은 [JgraphTest](https://github.com/woowa
 
 ### 5km 마다 100원 추가
 ```java
-    private int calculateOverFare(int distance) {
-        return (int) ((Math.ceil((distance - 1) / 5) + 1) * 100);
+private int calculateOverFare(int distance) {
+    if (distance == 0) {
+        return 0;
     }
+    return (int) ((Math.ceil((distance - 1) / 5) + 1) * 100);
+}
 ```
 
 <br/>
