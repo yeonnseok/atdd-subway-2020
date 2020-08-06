@@ -35,6 +35,13 @@ export const SNACKBAR_MESSAGES = {
     }
   },
   PATH: {
+    INPUT_FORM: {
+      BLANK: '😰 조회할 지하철 역을 입력해주세요.',
+      NEGATIVE: '😰 잘못된 지하철 역입니다. 다시 입력해주세요.'
+    },
+    DEPARTURE_TIME: {
+      FAIL: '😰 입력이 올바르지않습니다. 다시 입력해주세요.'
+    },
     ARRIVAL_TIME: {
       SUCCESS: '😀 빠른 도착으로 다시 검색 하습니다.',
       FAIL: '😰 빠른 도착으로 다시 검색하는 과정에 오류가 발생했습니다.'

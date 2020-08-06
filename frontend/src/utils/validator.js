@@ -1,12 +1,12 @@
 const validator = {
   path: {
-    source: [],
-    target: []
+    source: [(v) => !!v || '조회할 지하철 역 입력이 필요합니다.', (v) => v < 0 || '잘못된 지하철 역입니다.'],
+    target: [(v) => !!v || '조회할 지하철 역 입력이 필요합니다.', (v) => v < 0 || '잘못된 지하철 역입니다.']
   },
   departureTime: {
-    dayTime: [],
-    hour: [],
-    minute: []
+    dayTime: [(v) => !!v || '오전 오후 입력이 필요합니다.'],
+    hour: [(v) => this.dayTime === 'am' && v >= 12 || '오전은 12시 미만만 선택할 수 있습니다.', (v) => this.dayTime === 'pm' && v < 12 || '오후는 12시 이상만 선택할 수 있습니다.'],
+    minute: [(v) => v < 0 || v > 60 || '분 입력이 올바르지 않습니다.']
   },
   stationName: [(v) => !!v || '이름 입력이 필요합니다.', (v) => v.length > 0 || '이름은 1글자 이상 입력해야 합니다.'],
   line: {
