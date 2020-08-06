@@ -1,8 +1,12 @@
 package wooteco.subway.maps.station.domain;
 
-import wooteco.subway.common.domain.BaseEntity;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-import javax.persistence.*;
+import wooteco.subway.common.domain.BaseEntity;
 
 @Entity
 public class Station extends BaseEntity {
@@ -13,6 +17,11 @@ public class Station extends BaseEntity {
     private String name;
 
     public Station() {
+    }
+
+    public Station(Long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Station(String name) {
