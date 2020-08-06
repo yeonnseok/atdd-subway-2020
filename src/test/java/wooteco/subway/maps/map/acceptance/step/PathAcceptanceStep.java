@@ -11,13 +11,15 @@ import org.springframework.http.MediaType;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import wooteco.security.core.TokenResponse;
 import wooteco.subway.maps.map.dto.PathResponse;
 import wooteco.subway.maps.station.dto.StationResponse;
 
 public class PathAcceptanceStep {
-    public static ExtractableResponse<Response> 거리_경로_조회_요청(String type, long source, long target) {
+    public static ExtractableResponse<Response> 거리_경로_조회_요청(TokenResponse tokenResponse, String type, long source, long target) {
         return RestAssured.given().log().all().
                 accept(MediaType.APPLICATION_JSON_VALUE).
+                auth().oauth2(tokenResponse.getAccessToken()).
                 when().
                 get("/paths?source={sourceId}&target={targetId}&type={type}", source, target, type).
                 then().

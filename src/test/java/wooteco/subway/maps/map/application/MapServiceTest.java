@@ -26,6 +26,7 @@ import wooteco.subway.maps.map.dto.MapResponse;
 import wooteco.subway.maps.map.dto.PathResponse;
 import wooteco.subway.maps.station.application.StationService;
 import wooteco.subway.maps.station.domain.Station;
+import wooteco.subway.members.member.domain.LoginMember;
 
 @ExtendWith(MockitoExtension.class)
 public class MapServiceTest {
@@ -69,8 +70,8 @@ public class MapServiceTest {
         lines = Lists.newArrayList(line1, line2, line3);
 
         List<LineStationEdge> lineStations = Lists.newArrayList(
-                new LineStationEdge(lineStation6, line3.getId()),
-                new LineStationEdge(lineStation7, line3.getId())
+                new LineStationEdge(lineStation6, line3.getId(), line3),
+                new LineStationEdge(lineStation7, line3.getId(), line3)
         );
         subwayPath = new SubwayPath(lineStations);
 
@@ -83,11 +84,13 @@ public class MapServiceTest {
         when(pathService.findPath(anyList(), anyLong(), anyLong(), any())).thenReturn(subwayPath);
         when(stationService.findStationsByIds(anyList())).thenReturn(stations);
 
-        PathResponse pathResponse = mapService.findPath(1L, 3L, PathType.DISTANCE);
+        LoginMember member = new LoginMember(1L, "test@test.com", "tester", 16);
+        PathResponse pathResponse = mapService.findPath(1L, 3L, PathType.DISTANCE, member);
 
         assertThat(pathResponse.getStations()).isNotEmpty();
         assertThat(pathResponse.getDuration()).isNotZero();
         assertThat(pathResponse.getDistance()).isNotZero();
+        assertThat(pathResponse.getFare()).isNotZero();
     }
 
     @Test

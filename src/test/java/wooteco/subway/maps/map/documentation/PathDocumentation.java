@@ -50,7 +50,7 @@ public class PathDocumentation extends Documentation {
         StationResponse 양재역 = StationResponse.of(new Station(3L, "양재역"));
         List<StationResponse> stations = Lists.newArrayList(교대역, 강남역, 양재역);
         PathResponse pathResponse = new PathResponse(stations, 40, 13, 1350);
-        when(mapService.findPath(anyLong(), anyLong(), any())).thenReturn(pathResponse);
+        when(mapService.findPath(anyLong(), anyLong(), any(), any())).thenReturn(pathResponse);
 
         given().
             log().all().

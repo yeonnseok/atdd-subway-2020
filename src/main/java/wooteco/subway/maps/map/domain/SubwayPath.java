@@ -33,8 +33,13 @@ public class SubwayPath {
         return lineStationEdges.stream().mapToInt(it -> it.getLineStation().getDistance()).sum();
     }
 
-    public int calculateFare() {
-        // TODO: calculate fare
-        return -1;
+    public int calculateFare(int memberAge) {
+        int totalFare = DistanceFare.calculate(calculateDistance());
+        totalFare += lineStationEdges.stream()
+            .mapToInt(it -> it.getLine().getExtraFare().getExtraFare())
+            .max()
+            .getAsInt();
+        totalFare = AgeDiscount.discountCalculate(totalFare, memberAge);
+        return totalFare;
     }
 }

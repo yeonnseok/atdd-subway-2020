@@ -1,11 +1,12 @@
 package wooteco.subway.maps.map.domain;
 
-import wooteco.subway.maps.line.domain.Line;
-import wooteco.subway.maps.line.domain.LineStation;
-import org.jgrapht.graph.WeightedMultigraph;
-
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.jgrapht.graph.WeightedMultigraph;
+
+import wooteco.subway.maps.line.domain.Line;
+import wooteco.subway.maps.line.domain.LineStation;
 
 public class SubwayGraph extends WeightedMultigraph<Long, LineStationEdge> {
     public SubwayGraph(Class edgeClass) {
@@ -32,7 +33,7 @@ public class SubwayGraph extends WeightedMultigraph<Long, LineStationEdge> {
     }
 
     private void addEdge(PathType type, LineStation lineStation, Line line) {
-        LineStationEdge lineStationEdge = new LineStationEdge(lineStation, line.getId());
+        LineStationEdge lineStationEdge = new LineStationEdge(lineStation, line.getId(), line);
         addEdge(lineStation.getPreStationId(), lineStation.getStationId(), lineStationEdge);
         setEdgeWeight(lineStationEdge, type.findWeightOf(lineStation));
     }

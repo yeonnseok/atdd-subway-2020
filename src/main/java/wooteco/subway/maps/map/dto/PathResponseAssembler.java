@@ -7,16 +7,19 @@ import java.util.stream.Collectors;
 import wooteco.subway.maps.map.domain.SubwayPath;
 import wooteco.subway.maps.station.domain.Station;
 import wooteco.subway.maps.station.dto.StationResponse;
+import wooteco.subway.members.member.domain.LoginMember;
 
 public class PathResponseAssembler {
-    public static PathResponse assemble(SubwayPath subwayPath, Map<Long, Station> stations) {
+    public static PathResponse assemble(SubwayPath subwayPath, Map<Long, Station> stations, LoginMember member) {
         List<StationResponse> stationResponses = subwayPath.extractStationId().stream()
                 .map(it -> StationResponse.of(stations.get(it)))
                 .collect(Collectors.toList());
 
-        int distance = subwayPath.calculateDistance();
-        int fare = subwayPath.calculateFare();
-
-        return new PathResponse(stationResponses, subwayPath.calculateDuration(), distance, 1250);
+        return new PathResponse(
+            stationResponses,
+            subwayPath.calculateDuration(),
+            subwayPath.calculateDistance(),
+            subwayPath.calculateFare(member.getAge())
+        );
     }
 }
