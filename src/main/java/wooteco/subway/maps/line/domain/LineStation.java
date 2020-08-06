@@ -1,7 +1,13 @@
 package wooteco.subway.maps.line.domain;
 
-import javax.persistence.*;
 import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table
@@ -47,5 +53,9 @@ public class LineStation {
 
     public void updatePreStationTo(Long newPreStationId) {
         this.preStationId = newPreStationId;
+    }
+
+    public Integer getFastArrival() {
+        return 1;
     }
 }

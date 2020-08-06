@@ -220,7 +220,7 @@ export default {
     ...mapActions([SEARCH_PATH, FETCH_STATIONS]),
     async onSearchResult() {
       try {
-        this.searchPath({ source: this.path.source, target: this.path.target, type: this.path.type});
+        this.searchPath({ source: this.path.source, target: this.path.target, type: this.path.type, time: this.time });
       } catch (e) {
         this.showSnackbar(SNACKBAR_MESSAGES.COMMON.FAIL)
         console.error(e)
@@ -249,6 +249,11 @@ export default {
           this.showSnackbar(SNACKBAR_MESSAGES.PATH.DEPARTURE_TIME.FAIL)
           return;
         }
+        const year = new Date().getFullYear()
+        const month = new Date().getMonth() + 1;
+        const day = new Date().getDate();
+        this.time = `${year}${month}${day}${this.departureTimeView.hour}${this.departureTimeView.minute}`
+        this.path.type = PATH_TYPE.ARRIVAL_TIME
         await this.onSearchResult()
         this.closeDialog()
         this.showSnackbar(SNACKBAR_MESSAGES.PATH.ARRIVAL_TIME.SUCCESS)
@@ -289,7 +294,7 @@ export default {
       PATH_TYPE: { ...PATH_TYPE },
       tab: null,
       valid: false,
-      time: '',
+      time: 'time',
       departureTimeView: {
         dayTime: '',
         hour: '',
