@@ -243,6 +243,12 @@ export default {
     },
     async onUpdateSearchResult() {
       try {
+        if (this.departureTimeView.dayTime !== 'am' || this.departureTimeView.dayTime !== 'pm' ||
+                this.departureTimeView.hour < 0 || this.departureTimeView.hour > 23 ||
+        this.departureTimeView.minute < 0 || this.departureTimeView.minute > 60) {
+          this.showSnackbar(SNACKBAR_MESSAGES.PATH.DEPARTURE_TIME.FAIL)
+          return;
+        }
         await this.onSearchResult()
         this.closeDialog()
         this.showSnackbar(SNACKBAR_MESSAGES.PATH.ARRIVAL_TIME.SUCCESS)
